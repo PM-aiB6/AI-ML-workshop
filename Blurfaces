@@ -1,0 +1,15 @@
+import cv2
+from google.colab.patches import cv2_imshow
+#Load pre-trained face detector
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+#Load image
+image=cv2.imread("demo4.jpg")
+#Detect face
+faces = face_cascade.detectMultiScale(image, scaleFactor=1.1,minNeighbors=7)
+#Blur each face
+for(x,y,w,h) in faces:
+  face=image[y:y+h,x:x+w]
+  face= cv2.GaussianBlur(face,(99,99),30)
+  image[y:y+h,x:x+w] = face
+  #Show result
+  cv2_imshow(image)
