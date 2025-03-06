@@ -1,0 +1,14 @@
+import cv2
+from google.colab.patches import cv2_imshow
+#Load image
+image=cv2.imread("demo4.jpg")
+#Convert to grayscale
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+#Invert the grayscale image
+inverted = cv2.bitwise_not(gray)
+#Apply Gaussian blur
+blurred = cv2.GaussianBlur(inverted,(21,21),0)
+#Invert the blurred image and blend with grayscale
+sketch = cv2.divide(gray, cv2.bitwise_not(blurred),scale=256.0)
+#Show result
+cv2_imshow(sketch)
